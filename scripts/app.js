@@ -113,7 +113,7 @@
                     <td>TESTING DESCRIPTION</td>
                     <td>9999-12-31 11:59</td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#opportunityModal" onclick="modalSetUp('1')">MODAL TEST</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#opportunityModal" onclick="modalSetUp('1')">Sign Up</button>
                     </td>
                  </tr>`;
         data += `<tr>
@@ -122,7 +122,7 @@
                     <td>TESTING DESCRIPTION 2</td>
                     <td>9999-12-31 11:59</td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#opportunityModal" onclick="modalSetUp('2')">MODAL TEST</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#opportunityModal" onclick="modalSetUp('2')">Sign Up</button>
                     </td>
                  </tr>`;
 

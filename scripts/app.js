@@ -70,6 +70,7 @@
 
 		window.onscroll = function() {scrollFunction()};
 
+		// Hides backToTopButton if at top of page
 		function scrollFunction() {
 			if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
 				backToTopButton.style.display = "block";
@@ -77,11 +78,6 @@
 				backToTopButton.style.display = "none";
 			}
 		}
-
-		backToTopButton.addEventListener("click", function() {
-			// Gotten from: theMaxx and KyleMit at https://stackoverflow.com/questions/15935318/smooth-scroll-to-top
-			window.scrollTo({top: 0, behavior: 'smooth'});
-		});
     }
 
     function DisplayHomePage(){

@@ -92,9 +92,9 @@
             location.href = "opportunity.html";
         });
 
-        updateNavbar()
-        appendFooter()
-        backToTopButtonSetUp()
+        updateNavbar();
+        appendFooter();
+        backToTopButtonSetUp();
     }
 
     function DisplayOpportunityPage() {
@@ -143,9 +143,9 @@
             thanksMessage.textContent = "Thank you for volunteering!";
         });
 
-        updateNavbar()
-        appendFooter()
-        backToTopButtonSetUp()
+        updateNavbar();
+        appendFooter();
+        backToTopButtonSetUp();
     }
 
     function DisplayEventPage() {
@@ -154,9 +154,9 @@
         currentNavItem.className = currentNavItem.className.concat(" active");
         currentNavItem.ariaCurrent = "page";
 
-        updateNavbar()
-        appendFooter()
-        backToTopButtonSetUp()
+        updateNavbar();
+        appendFooter();
+        backToTopButtonSetUp();
     }
 
     function DisplayContactPage() {
@@ -188,9 +188,9 @@
 
         });
 
-        updateNavbar()
-        appendFooter()
-        backToTopButtonSetUp()
+        updateNavbar();
+        appendFooter();
+        backToTopButtonSetUp();
     }
 
     function DisplayAboutPage() {
@@ -199,9 +199,9 @@
         currentNavItem.className = currentNavItem.className.concat(" active");
         currentNavItem.ariaCurrent = "page";
 
-        updateNavbar()
-        appendFooter()
-        backToTopButtonSetUp()
+        updateNavbar();
+        appendFooter();
+        backToTopButtonSetUp();
     }
 
     function DisplayPrivacyPolicyPage() {
@@ -210,9 +210,9 @@
         currentNavItem.className = currentNavItem.className.concat(" active");
         currentNavItem.ariaCurrent = "page";
 
-        updateNavbar()
-        appendFooter()
-        backToTopButtonSetUp()
+        updateNavbar();
+        appendFooter();
+        backToTopButtonSetUp();
     }
 
     function DisplayServiceTermsPage() {
@@ -221,9 +221,9 @@
         currentNavItem.className = currentNavItem.className.concat(" active");
         currentNavItem.ariaCurrent = "page";
 
-        updateNavbar()
-        appendFooter()
-        backToTopButtonSetUp()
+        updateNavbar();
+        appendFooter();
+        backToTopButtonSetUp();
     }
 
     function Start() {

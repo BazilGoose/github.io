@@ -7,7 +7,7 @@
     function CheckLogin() {
         console.log("[INFO] Checking user login status");
 
-        const loginNav = document.getElementById("Login");
+        const loginNav = document.getElementById("login");
 
         if (!loginNav) {
             console.warn("[WARNING] loginNav element not found. Skipping CheckLogin().");

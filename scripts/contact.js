@@ -101,7 +101,7 @@
                 console.error("One or more Contact properties are missing or invalid");
                 return null;
             }
-            return `${this._fullName},${this._contactNumber},${this._emailAddress}`;
+            return `${this._fullName}<|>${this._contactNumber}<|>${this._emailAddress}`;
         }
 
         /**
@@ -110,11 +110,11 @@
          * @returns {null}
          */
         deserialize(data) {
-            if (typeof data !== "string" || data.split(",").length !== 3) {
+            if (typeof data !== "string" || data.split("<|>").length !== 3) {
                 console.error("Invalid data format for deserialization");
                 return null;
             }
-            const propArray = data.split(",");
+            const propArray = data.split("<|>");
             this._fullName = propArray[0];
             this._contactNumber = propArray[1];
             this._emailAddress = propArray[2];

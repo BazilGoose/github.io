@@ -215,7 +215,7 @@
         const emailAddress = document.getElementById("emailAddress").value;
 
         // Create the contact in localStorage
-        AddContact(fullName, emailAddress, contactNumber);
+        AddContact(fullName, contactNumber, emailAddress);
 
         // Redirection
         location.href = "contact-list.html";

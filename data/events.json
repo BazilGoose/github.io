@@ -12,6 +12,12 @@
       "title" : "Event 2",
       "start" : "2025-01-30",
       "dataFilter" : "Event"
+    },
+    {
+      "id" : 3,
+      "title" : "PARTY",
+      "start" : "2025-02-23",
+      "dataFilter" : "Event"
     }
   ]
 }

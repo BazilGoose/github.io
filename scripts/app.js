@@ -581,7 +581,7 @@
 
                 for (const searchResult of searchResults) {
                     if (searchResult.title.toLowerCase().indexOf(searchTerm) > -1) {
-                        searchList.innerHTML += `<li><a class="nav-link" href="${searchResult.link}">${searchResult.title}</a></li>`;
+                        searchList.innerHTML += `<li><a class="nav-link" href="./${searchResult.link}">${searchResult.title}</a></li>`;
                     }
                 }
 

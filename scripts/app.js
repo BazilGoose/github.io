@@ -337,7 +337,6 @@
         sendButton.addEventListener("click", function(e){
             e.preventDefault()
 
-            console.log(`Full Name: ${fullName.value}, Email ${emailAddress.value}, Subject: ${messageSubject.value}, Message: ${message.value}`);
             let contact = new Contact(fullName.value, emailAddress.value, messageSubject.value, message.value);
             if (contact.serialize()) {
                 let key = `contact_${Date.now()}`;
@@ -346,6 +345,12 @@
 
             let thanksModal = new bootstrap.Modal(document.getElementById("thanksModal"));
             thanksModal.show();
+
+            let submissionDetails = document.getElementById("submissionDetails");
+            submissionDetails.innerHTML = `<br />Name: ${contact.fullName}<br />
+            Email: ${contact.emailAddress}<br />
+            Subject: ${contact.messageSubject}<br />
+            Message: ${contact.message}`;
 
             setTimeout(function() {
                 window.location.href = "index.html";
@@ -653,7 +658,7 @@
             case "Events":
                 DisplayEventPage();
                 break;
-            case "Contacts":
+            case "Contact Us":
                 DisplayContactPage();
                 break;
             case "About":

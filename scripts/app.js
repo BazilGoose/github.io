@@ -564,7 +564,7 @@
 
         searchBar.addEventListener("keyup", async function() {
             try {
-                const response = await fetch("../data/search.json");
+                const response = await fetch("data/search.json");
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }

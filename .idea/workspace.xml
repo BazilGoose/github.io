@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="efdf15a1-4708-4510-8a4b-78f8dafdbc12" name="Changes" comment="Added INFT 2202-02 Assignment 2" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;BazilGoose&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/BazilGoose/github.io.git&quot;,
+    &quot;accountId&quot;: &quot;3431edd9-1edc-4fca-b063-f93b4adc7d75&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2t5oYu34j3RqmZe3tYwjOylJznX" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/noahb/WebstormProjects/BazilGoose.github.com&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\noahb\WebstormProjects\BazilGoose.github.com" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-WS-243.24978.60" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="efdf15a1-4708-4510-8a4b-78f8dafdbc12" name="Changes" comment="" />
+      <created>1739651346389</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1739651346389</updated>
+      <workItem from="1739651347492" duration="331000" />
+      <workItem from="1739651800703" duration="59000" />
+      <workItem from="1739651874219" duration="200000" />
+      <workItem from="1739652198562" duration="5000" />
+      <workItem from="1739658332136" duration="110000" />
+      <workItem from="1739658918550" duration="39000" />
+      <workItem from="1739660679555" duration="49000" />
+      <workItem from="1740332645549" duration="205000" />
+    </task>
+    <task id="LOCAL-00001" summary="Added Week 6 Day 2 for ICE 2">
+      <option name="closed" value="true" />
+      <created>1739651515564</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1739651515564</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added Week 6 Day 2 for ICE 2">
+      <option name="closed" value="true" />
+      <created>1739651615669</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1739651615669</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Emptied Pages">
+      <option name="closed" value="true" />
+      <created>1739651836983</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1739651836983</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added Week 6 Day 2 Demonstration to GitHub pages">
+      <option name="closed" value="true" />
+      <created>1739652056449</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1739652056449</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Fixed serialization and deserialization that probably broke from cole commiting and pushing changes that he shouldn't have">
+      <option name="closed" value="true" />
+      <created>1739658427424</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1739658427424</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Fixed loginNav document get">
+      <option name="closed" value="true" />
+      <created>1739658950116</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1739658950116</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Fixed handleAddClick function">
+      <option name="closed" value="true" />
+      <created>1739660718477</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1739660718477</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added INFT 2202-02 Assignment 2">
+      <option name="closed" value="true" />
+      <created>1740332743239</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1740332743239</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added INFT 2202-02 Assignment 2">
+      <option name="closed" value="true" />
+      <created>1740332833326</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1740332833326</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added Week 6 Day 2 for ICE 2" />
+    <MESSAGE value="Emptied Pages" />
+    <MESSAGE value="Added Week 6 Day 2 Demonstration to GitHub pages" />
+    <MESSAGE value="Fixed serialization and deserialization that probably broke from cole commiting and pushing changes that he shouldn't have" />
+    <MESSAGE value="Fixed loginNav document get" />
+    <MESSAGE value="Fixed handleAddClick function" />
+    <MESSAGE value="Added INFT 2202-02 Assignment 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added INFT 2202-02 Assignment 2" />
+  </component>
+</project>

@@ -10,6 +10,9 @@
 
     let GallerySlideIndex = 1;
 
+    /**
+     * Checks the login status of the user, changes the login button in the navbar to logout
+     */
     function CheckLogin() {
         console.log("[INFO] Checking user login status");
 
@@ -141,6 +144,9 @@
         displayPlaces();
     }
 
+    /**
+     * Displays the new foursquare places and attractions in the home page
+     */
     async function displayPlaces() {
 
         // https://foursquare.com/developers/home
@@ -158,13 +164,14 @@
         };
 
         try {
+            // Gets places from the foursquare api
             const response = await fetch(`https://api.foursquare.com/v3/places/search?ll=43.944325410989336%2C-78.8966073510502&radius=10000&categories=4d4b7104d754a06370d81259&sort=RELEVANCE&limit=${resultLimit}`, options)
 
             if (!response.ok) {
                 throw new Error("Failed to fetch the places data");
-            } else {
-                apiMessage.textContent = "";
             }
+
+            apiMessage.textContent = "";
 
             const responseData = await response.json();
             const placesList = document.getElementById("placesList");
@@ -175,6 +182,7 @@
                 apiMessage.textContent = "No places found.";
             }
 
+            // Adds each of the foursquare places information to the home page
             responseData.results.forEach((place) => {
 
                 // I figured out how to use the icon url from this
@@ -213,26 +221,41 @@
         let opportunityList = document.getElementById("opportunityList");
         let data = "";
 
-        data += `<tr>
-                    <th scope="row" class="text-center">1</th>
-                    <td>Opportunity 1</td>
-                    <td>Testing Description</td>
-                    <td>9999-12-31 11:59</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#opportunityModal" onclick="modalSetUp('1')">Sign Up</button>
-                    </td>
-                 </tr>`;
-        data += `<tr>
-                    <th scope="row" class="text-center">2</th>
-                    <td>Opportunity 2</td>
-                    <td>Testing Description 2</td>
-                    <td>9999-12-31 11:59</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#opportunityModal" onclick="modalSetUp('2')">Sign Up</button>
-                    </td>
-                 </tr>`;
+        async function GetOpportunities() {
+            try {
+                const response = await fetch("data/opportunities.json");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
 
-        opportunityList.innerHTML = data;
+                const jsonData = await response.json();
+                const opportunitiesGet = jsonData.opportunity;
+                if (!Array.isArray(opportunitiesGet)) {
+                    throw new Error("[ERROR] JSON data does not contain a valid array!");
+                }
+
+                let i = 1;
+
+                for (let opportunity of opportunitiesGet) {
+                    data += `<tr>
+                                <th scope="row" class="text-center">${i}</th>
+                                <td>${opportunity.title}</td>
+                                <td>${opportunity.description}</td>
+                                <td>${opportunity.dateTime}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#opportunityModal" onclick="modalSetUp('${i}')">Sign Up</button>
+                                </td>
+                             </tr>`;
+                    i += 1;
+                }
+            }
+            catch (error) {
+                console.error(`[ERROR] Opportunity get failed: ${error}`);
+            }
+        }
+
+        GetOpportunities()
+            .then(() => {opportunityList.innerHTML = data;});
 
         // Getting the opportunityModal working
         let sendButton = document.getElementById("sendButton");
@@ -564,7 +587,7 @@
 
         searchBar.addEventListener("keyup", async function() {
             try {
-                const response = await fetch("../data/search.json");
+                const response = await fetch("data/search.json");
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }

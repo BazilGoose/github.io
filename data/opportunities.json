@@ -1,0 +1,15 @@
+{
+  "opportunity" :
+  [
+    {
+      "title" : "Opportunity 1",
+      "description" : "Testing Description",
+      "dateTime" : "9999-12-31 11:59pm"
+    },
+    {
+      "title" : "Opportunity 2",
+      "description" : "Testing Description 2",
+      "dateTime" : "2025-03-23 3:20pm"
+    }
+  ]
+}

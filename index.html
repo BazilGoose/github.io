@@ -1,37 +1,75 @@
 <!doctype html>
 <html lang="en">
 <head>
-
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
 
-    <!-- CSS Section -->
-    <link rel="stylesheet" href="./content/app.css">
+    <!-- Css Selection -->
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
-
+    <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.css">
+    <link rel="stylesheet" href="./content/app.css">
 </head>
 <body>
 
+<!-- Header is in header.html, active is set dynamically in app.js -->
 <header></header>
 
-<main class="container">
-    <h1><i class="fa-solid fa-user-secret"></i><i class="fa-solid fa-poo-storm"></i> Welcome to INFT 2202-02 Week 1</h1>
-    <button id="AboutUsBtn" class="btn btn-primary">About Us</button>
+<main class="container py-5">
+        <div class="text-center mb-4 pb-5">
+            <h1>Welcome to Volunteer Connect</h1>
+            <button id="GetInvolvedBtn" class="btn btn-primary">Get Involved</button>
+        </div>
+    <div class="row g-4 align-items-start">
+        <div id="carouselColumn" class="col-md-6 d-flex justify-content-center">
+            <!-- Image Carousel Gotten From Bootstrap -->
+            <!-- Current Images Are Placeholders >Noah -->
+            <div id="carouselExample" class="carousel slide w-100">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="./images/Grave_CrowSprite.png" class="d-block w-100" alt="Grave Crow Sprite">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./images/QuestionMarkSprite.png" class="d-block w-100" alt="??? Sprite">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./images/System32Sprite.png" class="d-block w-100" alt="System32 Sprite">
+                    </div>
+                </div>
+                <button style="background-color:gray" class="carousel-control-prev" type="button"
+                        data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button style="background-color:gray" class="carousel-control-next" type="button"
+                        data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <div id="placesApiColumn" class="col text-center">
+            <h3 class="text-center mb-4">Nearby Attractions</h3>
+            <p id="apiMessage">Loading...</p>
+            <div id="placesList" class="d-flex flex-column align-items-center">
+                <!-- Nearby places are added here from app.js -->
+            </div>
+        </div>
 
-    <div id="weather" class="mt-5">
-        <h3>Weather Forecast Oshawa</h3>
-        <p id="weather-data">Fetching weather data ... </p>
     </div>
+
+    <!-- Gotten from: theMaxx and KyleMit at https://stackoverflow.com/questions/15935318/smooth-scroll-to-top -->
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" id="backToTopButton">Back To Top</button>
 
 </main>
 
-<!-- Scripting Section -->
-<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="./scripts/app.js"></script>
 
+<!-- Scripting Section -->
+<script src="./node_modules/@popperjs/core/dist/umd/popper.js"></script>
+<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+<script src="./scripts/app.js"></script>
 </body>
 </html>

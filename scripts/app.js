@@ -17,6 +17,7 @@
         console.log("[INFO] Checking user login status");
 
         const loginNav = document.getElementById("login");
+        const navbar = document.getElementById("navbarSupportedContent");
 
         if (!loginNav) {
             console.warn("[WARNING] loginNav element not found. Skipping CheckLogin().");
@@ -26,6 +27,8 @@
         const userSession = sessionStorage.getItem("user");
 
         if (userSession) {
+            let userLogin = JSON.parse(userSession);
+
             loginNav.innerHTML = `<i class="fas fa-sign-out-alt"></i> Logout`;
             loginNav.href = "#";
             loginNav.addEventListener("click", (event) => {
@@ -33,6 +36,11 @@
                 sessionStorage.removeItem("user");
                 location.href = "login.html";
             });
+
+            let loginMessage = document.createElement("span");
+            loginMessage.setAttribute("class", "navbar-text");
+            loginMessage.innerHTML = `Hello, ${userLogin.DisplayName}!`;
+            navbar.appendChild(loginMessage);
         }
 
     }
@@ -422,9 +430,9 @@
                 if (success) {
 
                     sessionStorage.setItem("user", JSON.stringify({
-                        DisplayName : authenticatedUser.DisplayName,
-                        EmailAddress : authenticatedUser.EmailAddress,
-                        Username : authenticatedUser.Username
+                        "DisplayName" : `${authenticatedUser.DisplayName}`,
+                        "EmailAddress" : `${authenticatedUser.EmailAddress}`,
+                        "Username" : `${authenticatedUser.Username}`
                     }));
 
                     messageArea.style.display = "none";
@@ -604,7 +612,7 @@
 
                 for (const searchResult of searchResults) {
                     if (searchResult.title.toLowerCase().indexOf(searchTerm) > -1) {
-                        searchList.innerHTML += `<li><a class="nav-link" href="./${searchResult.link}">${searchResult.title}</a></li>`;
+                        searchList.innerHTML += `<li><a class="nav-link" href="${searchResult.link}">${searchResult.title}</a></li>`;
                     }
                 }
 

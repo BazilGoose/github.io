@@ -62,7 +62,7 @@
         searchBar.setAttribute("class", "nav-item");
         searchBar.setAttribute("autocomplete", "off");
         searchBar.innerHTML = `
-            <input id="searchBar" class="form-control mr-sm-2" type="search" placeholder="Search Events..." aria-label="Search">
+            <input id="searchBar" class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search">
             <ul id="searchResults"></ul>`;
         navbarList.appendChild(searchBar);
     }

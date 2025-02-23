@@ -1,0 +1,17 @@
+{
+  "images" :
+  [
+    {
+      "src" : "Grave_CrowSprite.png",
+      "alt" : "Grave Crow Sprite"
+    },
+    {
+      "src" : "QuestionMarkSprite.png",
+      "alt" : "Question Mark Sprite"
+    },
+    {
+      "src" : "System32Sprite.png",
+      "alt" : "System 32 Sprite"
+    }
+  ]
+}

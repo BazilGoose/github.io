@@ -80,6 +80,7 @@
       <workItem from="1740336620204" duration="121000" />
       <workItem from="1740341306075" duration="13000" />
       <workItem from="1740344438073" duration="162000" />
+      <workItem from="1740346350541" duration="79000" />
     </task>
     <task id="LOCAL-00001" summary="Added Week 6 Day 2 for ICE 2">
       <option name="closed" value="true" />
@@ -169,7 +170,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740344588987</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Updated to latest version">
+      <option name="closed" value="true" />
+      <created>1740346413081</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1740346413081</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

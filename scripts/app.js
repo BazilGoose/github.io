@@ -62,7 +62,7 @@
         searchBar.setAttribute("class", "nav-item");
         searchBar.setAttribute("autocomplete", "off");
         searchBar.innerHTML = `
-            <input id="searchBar" class="form-control mr-sm-2" type="search" placeholder="Search Events..." aria-label="Search">
+            <input id="searchBar" class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search">
             <ul id="searchResults"></ul>`;
         navbarList.appendChild(searchBar);
     }
@@ -203,10 +203,10 @@
 
                 data += `
                     <div class="card mb-3">
-                        <div class="card-body">
-                            <img src="${iconUrl}" alt="Catagory icon" class="card-img-top">
-                            <h5 class="card-title">${placeName}</h5>
-                            <p class="card-text">${placeAddress}</p>
+                        <div class="card-body bg-black">
+                            <img src="${iconUrl}" alt="Catagory icon" class="card-img-top text-white">
+                            <h5 class="card-title text-white">${placeName}</h5>
+                            <p class="card-text text-white">${placeAddress}</p>
                         </div>
                     </div>
                      `;
@@ -346,6 +346,7 @@
             let thanksModal = new bootstrap.Modal(document.getElementById("thanksModal"));
             thanksModal.show();
 
+            // Displays submission details inside the modal
             let submissionDetails = document.getElementById("submissionDetails");
             submissionDetails.innerHTML = `<br />Name: ${contact.fullName}<br />
             Email: ${contact.emailAddress}<br />
@@ -489,6 +490,7 @@
 
         // Much of the function was gotten from: https://www.w3schools.com/howto/howto_js_lightbox.asp
         try {
+            // Gets the image json data from the gallery json file
             const response = await fetch("data/gallery.json");
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -496,16 +498,19 @@
 
             const jsonData = await response.json();
 
+            // Converts the json data into images json data
             const galleryImages = jsonData.images;
             if (!Array.isArray(galleryImages)) {
                 throw new Error("[ERROR] JSON data does not contain a valid array!");
             }
 
+            // Gets the gallery and modal from the document
             const gallery = document.getElementById("gallery");
             const modalContent = document.getElementById("modal-content");
             let i = 1;
             let j = 0;
 
+            // Adds each of the images to the gallery
             for (const galleryImage of galleryImages) {
                 gallery.innerHTML += `<img src="./images/${galleryImage.src}" alt="${galleryImage.alt}" class="img h-25 w-25 hover-shadow" onclick="openGalleryModal();currentGallerySlide(${i});">`;
                 i += 1;
@@ -514,6 +519,7 @@
 
             i = 1;
 
+            // Adds all the images and controls to the gallery modal
             for (const galleryImage of galleryImages) {
                 modalContent.innerHTML += `
                 <div class="mySlides">
@@ -590,6 +596,10 @@
             .catch(error => console.error(`Unable to load header: ${error}`));
     }
 
+    /**
+     * Loads the search results for the search bar, filters by what you type into it
+     * @returns {Promise<void>}
+     */
     async function LoadSearchResults() {
         console.log("Loading search results...");
 
@@ -598,8 +608,10 @@
         let searchBar = document.getElementById("searchBar");
         let searchList = document.getElementById("searchResults");
 
+        // Creates a list of results when you release a key
         searchBar.addEventListener("keyup", async function() {
             try {
+                // Gets the possible search results from the search json file
                 const response = await fetch("data/search.json");
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -607,14 +619,18 @@
 
                 const jsonData = await response.json();
 
+                // Turns the json data into searchOptions json data
                 const searchResults = jsonData.searchOptions;
                 if (!Array.isArray(searchResults)) {
                     throw new Error("[ERROR] JSON data does not contain a valid array!");
                 }
 
+                // Resets the search result list
                 searchList.innerHTML = "";
                 let searchTerm = searchBar.value.toLowerCase();
 
+                // If any of the characters within the title of the search option is found in the search bar
+                // input, it will add the search option to the search result list
                 for (const searchResult of searchResults) {
                     if (searchResult.title.toLowerCase().indexOf(searchTerm) > -1) {
                         searchList.innerHTML += `<li><a class="nav-link" href="${searchResult.link}">${searchResult.title}</a></li>`;
@@ -627,6 +643,7 @@
             }
         });
 
+        // Removes the list of search results if you have unfocused the search bar and don't have anything inputted
         searchBar.addEventListener("focusout", () => {
             if (searchBar.value.trim() === "") {
                 searchList.innerHTML = "";
@@ -635,6 +652,9 @@
 
     }
 
+    /**
+     * Sets everything up when the page is loaded
+     */
     function Start() {
         console.log("Starting App...");
 

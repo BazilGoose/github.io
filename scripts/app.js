@@ -1,391 +1,51 @@
 "use strict";
 
-// Names: Cole de Ruiter, Noah Barraclough
-// Student IDS: 100906323, 100923580
-// Date: February 23rd, 2025
+import {LoadHeader} from "./header.js";
+import {Router} from "./router.js";
+import {LoadFooter} from "./footer.js";
+import {AuthGuard} from "./authguard.js";
 
-//IIFE - Immediately Invoke Functional Expression
+const pageTitles = {
+    "/": "Home",
+    "/home": "Home",
+    "/about": "About Us",
+    "/contact-list": "Contact List",
+    "/contacts": "Contacts",
+    "/edit": "Edit Contact",
+    "/login": "Login",
+    "/products": "Products",
+    "/register": "Register",
+    "/services": "Services",
+    "/404": "404 | Page Not Found"
+};
 
-(function () {
+const routes = {
+    "/": "views/pages/home.html",
+    "/home": "views/pages/home.html",
+    "/about": "views/pages/about.html",
+    "/contact-list": "views/pages/contact-list.html",
+    "/contacts": "views/pages/contacts.html",
+    "/edit": "views/pages/edit.html",
+    "/login": "views/pages/login.html",
+    "/products": "views/pages/products.html",
+    "/register": "views/pages/register.html",
+    "/services": "views/pages/services.html",
+    "/404": "views/pages/404.html"
+};
 
-    let GallerySlideIndex = 1;
+const router = new Router(routes);
 
-    /**
-     * Checks the login status of the user, changes the login button in the navbar to logout
-     */
-    function CheckLogin() {
-        console.log("[INFO] Checking user login status");
+// IIFE - Immediately Invoked Functional Expression
+(function(){
 
-        const loginNav = document.getElementById("login");
-        const navbar = document.getElementById("navbarSupportedContent");
+    function DisplayLoginPage() {
+        console.log("[INFO] Calling LoginPage...");
 
-        if (!loginNav) {
-            console.warn("[WARNING] loginNav element not found. Skipping CheckLogin().");
+        if (sessionStorage.getItem("user")) {
+            console.log("[INFO] Redirecting logged in user from /login to /contact-list");
+            router.navigate("/contact-list");
             return;
         }
-
-        const userSession = sessionStorage.getItem("user");
-
-        if (userSession) {
-            let userLogin = JSON.parse(userSession);
-
-            loginNav.innerHTML = `<i class="fas fa-sign-out-alt"></i> Logout`;
-            loginNav.href = "#";
-            loginNav.addEventListener("click", (event) => {
-                event.preventDefault();
-                sessionStorage.removeItem("user");
-                location.href = "login.html";
-            });
-
-            let loginMessage = document.createElement("span");
-            loginMessage.setAttribute("class", "navbar-text");
-            loginMessage.innerHTML = `Hello, ${userLogin.DisplayName}!`;
-            navbar.appendChild(loginMessage);
-        }
-
-    }
-
-    /**
-     * Updates some names on the nav bar dynamically
-     */
-    function updateNavbar() {
-        // Changes "Opportunity" link in navbar to now say "Volunteer Now"
-        document.querySelector("#opportunity").textContent = "Volunteer Now";
-
-        // Adds "Donate" link to navbar, currently does nothing as no function was stated
-        let navbarList = document.getElementById("navList");
-        let donateLink = document.createElement("li");
-        donateLink.setAttribute("class", "nav-item");
-        donateLink.innerHTML = `<a id="donate" class="nav-link" href="donate.html">Donate</a>`;
-        navbarList.appendChild(donateLink);
-        let searchBar = document.createElement("li");
-        searchBar.setAttribute("class", "nav-item");
-        searchBar.setAttribute("autocomplete", "off");
-        searchBar.innerHTML = `
-            <input id="searchBar" class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search">
-            <ul id="searchResults"></ul>`;
-        navbarList.appendChild(searchBar);
-    }
-
-    /**
-     * Dynamically add a footer to the page with links to privacy policy and the terms of service
-     */
-    function appendFooter() {
-        // - - - - - Create elements - - - - -
-        let footer = document.createElement("footer");
-        footer.className = "mt-auto py-lg-5"
-
-        let nav = document.createElement("nav");
-        nav.className = "navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom";
-
-        let divContainer = document.createElement("div");
-        divContainer.className = "container-fluid";
-
-        let list = document.createElement("ul");
-        list.className = "navbar-nav me-auto mb-2 mb-lg-0";
-
-        let listItem1 = document.createElement("li");
-        listItem1.className = "nav-item";
-        let anchor1 = document.createElement("a");
-        anchor1.className = "nav-link";
-        anchor1.href = "privacyPolicy.html";
-        anchor1.textContent = "Privacy Policy";
-        listItem1.appendChild(anchor1);
-
-        let listItem2 = document.createElement("li");
-        listItem2.className = "nav-item";
-        let anchor2 = document.createElement("a");
-        anchor2.className = "nav-link";
-        anchor2.href = "serviceTerms.html";
-        anchor2.textContent = "Terms of Service";
-        listItem2.appendChild(anchor2);
-
-        // - - - - - - Append Elements - - - - -
-        // Add nav to footer
-        footer.appendChild(nav);
-
-        // add the bootstrap container to the nav
-        nav.appendChild(divContainer);
-
-        // add the list to the container
-        divContainer.appendChild(list);
-
-        // Add the list items into the list
-        list.appendChild(listItem1);
-        list.appendChild(listItem2);
-
-        // Adding the footer to the bottom of the body
-        document.body.appendChild(footer);
-    }
-
-    /**
-     * Sets up the "back to top button"
-     */
-    function backToTopButtonSetUp() {
-        // Gotten from: https://www.w3schools.com/howto/howto_js_scroll_to_top.asp
-        let backToTopButton = document.getElementById("backToTopButton");
-
-        window.onscroll = function() {scrollFunction()};
-
-        // Hides backToTopButton if at top of page
-        function scrollFunction() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                backToTopButton.style.display = "block";
-            } else {
-                backToTopButton.style.display = "none";
-            }
-        }
-    }
-
-    /**
-     * Called when displaying the homepage
-     */
-    function DisplayHomePage(){
-        console.log("Calling DisplayHomePage...");
-
-        // Get Involved Button Configuration
-        let getInvolvedButton = document.getElementById("GetInvolvedBtn");
-        getInvolvedButton.addEventListener("click", function(){
-            location.href = "opportunity.html";
-        });
-
-        displayPlaces();
-    }
-
-    /**
-     * Displays the new foursquare places and attractions in the home page
-     */
-    async function displayPlaces() {
-
-        // https://foursquare.com/developers/home
-        const apiKey = "fsq3NDg1qRl7Cpike3JK4CbR6BSimnxk0WKduffUuJhEg8g=";
-        const resultLimit = 5;
-
-        const apiMessage = document.getElementById("apiMessage");
-
-        const options = {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: apiKey
-            }
-        };
-
-        try {
-            // Gets places from the foursquare api
-            const response = await fetch(`https://api.foursquare.com/v3/places/search?ll=43.944325410989336%2C-78.8966073510502&radius=10000&categories=4d4b7104d754a06370d81259&sort=RELEVANCE&limit=${resultLimit}`, options)
-
-            if (!response.ok) {
-                throw new Error("Failed to fetch the places data");
-            }
-
-            apiMessage.textContent = "";
-
-            const responseData = await response.json();
-            const placesList = document.getElementById("placesList");
-            let data = "";
-
-            // No attractions in area
-            if (!responseData.results.length > 0) {
-                apiMessage.textContent = "No places found.";
-            }
-
-            // Adds each of the foursquare places information to the home page
-            responseData.results.forEach((place) => {
-
-                // I figured out how to use the icon url from this
-                // https://stackoverflow.com/questions/24377797/get-the-icon-of-a-foursquare-category-from-its-id
-                const category = place.categories[0];
-                const iconUrl = category.icon.prefix + "32" + category.icon.suffix;
-
-                const placeName = place.name;
-                const placeAddress = place.location.formatted_address;
-
-                data += `
-                    <div class="card mb-3">
-                        <div class="card-body bg-black">
-                            <img src="${iconUrl}" alt="Catagory icon" class="card-img-top text-white">
-                            <h5 class="card-title text-white">${placeName}</h5>
-                            <p class="card-text text-white">${placeAddress}</p>
-                        </div>
-                    </div>
-                     `;
-            })
-            placesList.innerHTML += data;
-
-        } catch (error) {
-            console.error(`[ERROR] ${error}`);
-            apiMessage.innerText = error.message;
-        }
-    }
-
-    /**
-     * Called when displaying the opportunities page
-     */
-    function DisplayOpportunityPage() {
-        console.log("Calling DisplayOpportunityPage...");
-
-        // Getting the opportunityList and opportunityModal working
-        let opportunityList = document.getElementById("opportunityList");
-        let data = "";
-
-        async function GetOpportunities() {
-            try {
-                const response = await fetch("data/opportunities.json");
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const jsonData = await response.json();
-                const opportunitiesGet = jsonData.opportunity;
-                if (!Array.isArray(opportunitiesGet)) {
-                    throw new Error("[ERROR] JSON data does not contain a valid array!");
-                }
-
-                let i = 1;
-
-                for (let opportunity of opportunitiesGet) {
-                    data += `<tr>
-                                <th scope="row" class="text-center">${i}</th>
-                                <td>${opportunity.title}</td>
-                                <td>${opportunity.description}</td>
-                                <td>${opportunity.dateTime}</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#opportunityModal" onclick="modalSetUp('${i}')">Sign Up</button>
-                                </td>
-                             </tr>`;
-                    i += 1;
-                }
-            }
-            catch (error) {
-                console.error(`[ERROR] Opportunity get failed: ${error}`);
-            }
-        }
-
-        GetOpportunities()
-            .then(() => {opportunityList.innerHTML = data;});
-
-        // Getting the opportunityModal working
-        let sendButton = document.getElementById("sendButton");
-        sendButton.addEventListener("click", function(e){
-            e.preventDefault();
-
-            console.log(`ID: ${opportunityId.textContent}, Full Name: ${fullName.value}, Email: ${emailAddress.value}, Role: ${preferredRole.value}`);
-            let volunteer = new Volunteer(opportunityId.textContent, fullName.value, emailAddress.value, preferredRole.value);
-            if (volunteer.serialize()) {
-                let key = `volunteer_${Date.now()}`;
-                localStorage.setItem(key, volunteer.serialize());
-            }
-            let thanksMessage = document.getElementById("thanksMessage");
-            thanksMessage.textContent = "Thank you for volunteering!";
-        });
-    }
-
-    /**
-     * Called when displaying the event page
-     */
-    async function DisplayEventPage() {
-        console.log("Calling DisplayEventPage...");
-
-        try {
-            const response = await fetch("data/events.json");
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const jsonData = await response.json()
-                .then(jsonData => {
-                    const events = jsonData.events;
-                    if (!Array.isArray(events)) {
-                        throw new Error("[ERROR] JSON data does not contain a valid array!");
-                    }
-
-                    let calendarEl = document.getElementById('calendar');
-                    let calendar = new FullCalendar.Calendar(calendarEl, {
-                        initialView: 'dayGridMonth',
-                        events: events
-                    });
-
-                    calendar.render();
-
-                    let filterSelect = document.getElementById('filterSelect');
-                    filterSelect.addEventListener('change', function () {
-                        let selectedFilter = filterSelect.value;
-
-                        let filteredEvents = events.filter(function (event) {
-                            return selectedFilter === "All" || event.dataFilter === selectedFilter;
-                        });
-
-                        calendar.setOption('events', filteredEvents);
-                    });
-                });
-        }
-        catch (error) {
-            console.error(`[ERROR] Event get failed ${error}`);
-        }
-    }
-
-    /**
-     * To be called when displaying the contact page
-     */
-    function DisplayContactPage() {
-        console.log("Calling DisplayContactPage...");
-
-        // Get form values and show 'Thank You' message
-        let sendButton = document.getElementById("sendButton");
-
-        sendButton.addEventListener("click", function(e){
-            e.preventDefault()
-
-            let contact = new Contact(fullName.value, emailAddress.value, messageSubject.value, message.value);
-            if (contact.serialize()) {
-                let key = `contact_${Date.now()}`;
-                localStorage.setItem(key, contact.serialize());
-            }
-
-            let thanksModal = new bootstrap.Modal(document.getElementById("thanksModal"));
-            thanksModal.show();
-
-            // Displays submission details inside the modal
-            let submissionDetails = document.getElementById("submissionDetails");
-            submissionDetails.innerHTML = `<br />Name: ${contact.fullName}<br />
-            Email: ${contact.emailAddress}<br />
-            Subject: ${contact.messageSubject}<br />
-            Message: ${contact.message}`;
-
-            setTimeout(function() {
-                window.location.href = "index.html";
-
-            }, 5000);
-        });
-    }
-
-    /**
-     * To be called when displaying the about page
-     */
-    function DisplayAboutPage() {
-        console.log("Calling DisplayAboutPage...");
-    }
-
-    /**
-     * To be called when displaying the privacy policy page
-     */
-    function DisplayPrivacyPolicyPage() {
-        console.log("Calling DisplayPrivacyPolicyPage...");
-    }
-
-    /**
-     * To be called when displaying the terms of service page
-     */
-    function DisplayServiceTermsPage() {
-        console.log("Calling DisplayServiceTermsPage...");
-    }
-
-    /**
-     * To be called when displaying the login page
-     */
-    function DisplayLoginPage() {
-        console.log("Calling DisplayLoginPage...");
 
         const messageArea = document.getElementById("messageArea");
         const loginButton = document.getElementById("loginButton");
@@ -406,14 +66,13 @@
             const password = document.getElementById("password").value.trim();
 
             try {
-
                 const response = await fetch("data/users.json");
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
 
                 const jsonData = await response.json();
-                //console.log(`[DEBUG] Fetched JSON data ${jsonData}`);
+                console.log(`[DEBUG] Fetched JSON data ${jsonData}`);
 
                 const users = jsonData.users;
                 if (!Array.isArray(users)) {
@@ -436,14 +95,17 @@
                 if (success) {
 
                     sessionStorage.setItem("user", JSON.stringify({
-                        "DisplayName" : `${authenticatedUser.DisplayName}`,
-                        "EmailAddress" : `${authenticatedUser.EmailAddress}`,
-                        "Username" : `${authenticatedUser.Username}`
+                        DisplayName : authenticatedUser.DisplayName,
+                        EmailAddress : authenticatedUser.EmailAddress,
+                        Username : authenticatedUser.Username
                     }));
 
                     messageArea.style.display = "none";
                     messageArea.classList.remove("alert", "alert-danger");
-                    location.href = "index.html";
+
+                    LoadHeader().then( () => {
+                        router.navigate("/contact-list");
+                    });
 
                 } else {
                     messageArea.style.display = "block";
@@ -467,240 +129,547 @@
 
         cancelButton.addEventListener("click", async (event) => {
             event.preventDefault();
-            document.getElementById("LoginForm").reset();
-            location.href = "index.html";
+            router.navigate("/");
         });
+
+    }
+
+    function DisplayRegisterPage() {
+        console.log("[INFO] Calling RegisterPage...");
     }
 
     /**
-     * To be called when displaying the gallery page
+     * Redirects user back to the contact-list page
      */
-    function DisplayGalleryPage() {
-        console.log("Calling DisplayGalleryPage...");
-
-        GetGalleryImages();
+    function handleCancelClick() {
+        router.navigate("/contact-list");
     }
 
     /**
-     * Sets up the gallery modal with image information from gallery.json
-     * @returns {Promise<void>}
+     * Handles the process of editing an existing contact
+     * @param event - the event object to prevent default form submission
+     * @param contact - contact to update
+     * @param page - unique contact identifier
      */
-    async function GetGalleryImages() {
-        console.log("Getting gallery images...");
+    function handleEditClick(event, contact, page) {
+        // Prevents default form submission behaviour
+        event.preventDefault();
 
-        // Much of the function was gotten from: https://www.w3schools.com/howto/howto_js_lightbox.asp
+        if (!validateForm()) {
+            alert("Form contains errors, please correct them before submitting");
+            return;
+        }
+
+        const fullName = document.getElementById("fullName").value;
+        const contactNumber = document.getElementById("contactNumber").value;
+        const emailAddress = document.getElementById("emailAddress").value;
+
+        // Update the contact object with the new values
+        contact.fullName = fullName;
+        contact.contactNumber = contactNumber;
+        contact.emailAddress = emailAddress;
+
+        // Save the updated contact (in localStorage) with the updated csv
+        localStorage.setItem(page, contact.serialize());
+
+        // Redirect upon success
+        router.navigate("/contact-list");
+
+    }
+
+    /**
+     * Handles the process of adding a new contact
+     * @param event - the event object to prevent default form submission
+     */
+    function handleAddClick(event) {
+        // Prevents default form submission behaviour
+        event.preventDefault();
+
+        if (!validateForm()) {
+            alert("Form contains errors, please correct them before submitting");
+            return;
+        }
+
+        const fullName = document.getElementById("fullName").value;
+        const contactNumber = document.getElementById("contactNumber").value;
+        const emailAddress = document.getElementById("emailAddress").value;
+
+        // Create the contact in localStorage
+        AddContact(fullName, contactNumber, emailAddress);
+
+        // Redirection
+        router.navigate("/contact-list");
+
+    }
+
+    /**
+     * Validates the entire form by checking the validity of each input
+     * @returns {boolean}
+     */
+    function validateForm() {
+
+        return (
+            validateInput("fullName") &&
+                validateInput("contactNumber") &&
+                    validateInput("emailAddress")
+        );
+
+    }
+
+    /**
+     * Attaches validation event listeners to form fields dynamically
+     * @param elementId
+     * @param event
+     * @param handler
+     */
+    function addEventListenerOnce(elementId, event, handler) {
+
+        const element = document.getElementById(elementId); // Retrieve element from DOM
+
+        if (element) {
+            // Removes any existing event listeners of the same type
+            element.removeEventListener(event, handler);
+
+            // Attach the new (latest) event for that element
+            element.addEventListener(event, handler);
+        } else {
+            console.warn(`[WARN] Element with id '${elementId}' not found`);
+        }
+
+    }
+
+    function attachValidationListeners() {
+        console.log("[INFO] Attaching validation listeners...");
+
+        Object.keys(VALIDATION_RULES).forEach((fieldId) => {
+
+            const field = document.getElementById(fieldId);
+
+            if (!field) {
+                console.warn(`[WARN] field ${fieldId} not found, Skipping listener`);
+                return;
+            }
+
+            // Attach event listener using a centralized validation method
+            addEventListenerOnce(fieldId, "input", () => validateInput(field));
+
+        });
+
+    }
+
+    /**
+     * Validates an input based on a predefined validation rule
+     * @param fieldId
+     * @returns {boolean} - Returns true if valid, false otherwise
+     */
+    function validateInput(fieldId) {
+
+        const field = document.getElementById(fieldId);
+        const errorElement = document.getElementById(`${fieldId}-error`);
+        const rule = VALIDATION_RULES[fieldId];
+
+        if (!field || !errorElement || !rule) {
+            console.warn(`[WARN] Validation rules not found for: ${fieldId}`);
+            return false;
+        }
+
+        // Check if the input is empty
+        if (field.value.trim() === "") {
+            errorElement.textContent = "This field is required";
+            errorElement.style.display = "block";
+            errorElement.style.marginLeft = "5px";
+            return false;
+        }
+
+        // Check field against regular expression
+        if (!rule.regex.test(field.value)) {
+            errorElement.textContent = rule.errorMessage;
+            errorElement.style.display = "block";
+            errorElement.style.marginLeft = "5px";
+            return false;
+        }
+
+        errorElement.textContent = "";
+        errorElement.style.display = "none";
+        return true;
+
+    }
+
+    /**
+     * Centralized validation rules for input fields
+     * @type {{fullName: {regex: RegExp, errorMessage: string}, contactNumber: {regex: RegExp, errorMessage: string}, emailAddress: {regex: RegExp, errorMessage: string}}}
+     */
+    const VALIDATION_RULES = {
+        fullName: {
+            regex: /^[A-Za-z\s]+$/, // Allows for only letters, and spaces
+            errorMessage: "Full Name must contain only letters and spaces"
+        },
+        contactNumber: {
+            regex: /^\d{3}-\d{3}-\d{4}$/,
+            errorMessage: "Contact number must be in the format of ###-###-####"
+        },
+        emailAddress: {
+            // Email regex gotten from: https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
+            regex: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            errorMessage: "Invalid email address"
+        }
+    }
+
+    async function DisplayWeather() {
+
+        const apiKey = "24f8178a77ac811fcb4d5f4ee1be4dbc";
+        const city = "Oshawa";
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
         try {
-            // Gets the image json data from the gallery json file
-            const response = await fetch("data/gallery.json");
+
+            const response = await fetch(url);
+
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                throw new Error("Failed to fetch the weather data");
             }
 
-            const jsonData = await response.json();
+            const data = await response.json();
+            console.log(data);
 
-            // Converts the json data into images json data
-            const galleryImages = jsonData.images;
-            if (!Array.isArray(galleryImages)) {
-                throw new Error("[ERROR] JSON data does not contain a valid array!");
-            }
+            const weatherDataElement = document.getElementById("weather-data");
+            weatherDataElement.innerHTML = `<strong>City: </strong> ${data.name}<br>
+                                            <strong>Temperature: </strong> ${data.main.temp}°C<br>
+                                            <strong>Weather: </strong> ${data.weather[0].description}<br>`;
 
-            // Gets the gallery and modal from the document
-            const gallery = document.getElementById("gallery");
-            const modalContent = document.getElementById("modal-content");
-            let i = 1;
-            let j = 0;
+        } catch (error) {
 
-            // Adds each of the images to the gallery
-            for (const galleryImage of galleryImages) {
-                gallery.innerHTML += `<img src="./images/${galleryImage.src}" alt="${galleryImage.alt}" class="img h-25 w-25 hover-shadow" onclick="openGalleryModal();currentGallerySlide(${i});">`;
-                i += 1;
-                j += 1;
-            }
-
-            i = 1;
-
-            // Adds all the images and controls to the gallery modal
-            for (const galleryImage of galleryImages) {
-                modalContent.innerHTML += `
-                <div class="mySlides">
-                    <div class="numbertext">${i} / ${j}</div>
-                    <img src="images/${galleryImage.src}" alt="${galleryImage.alt}" class="img h-75 w-75">
-                </div>`;
-                i += 1;
-            }
-
-            modalContent.innerHTML += `
-            <a class="prev" onclick="plusGallerySlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusGallerySlides(1)">&#10095;</a>
-
-            <div class="caption-container">
-                <p id="caption"></p>
-            </div>`;
-
-            i = 1;
-
-            for (const galleryImage of galleryImages) {
-                modalContent.innerHTML += `
-                <div class="column">
-                    <img class="demo h-25 w-25" src="./images/${galleryImage.src}" alt="${galleryImage.alt}" onclick="currentGallerySlide(${i})">
-                </div>`;
-                i += 1;
-            }
-
-            GallerySlideIndex = 1;
-            showGallerySlide(GallerySlideIndex);
+            console.error("Error calling openweathermap for Weather");
+            document.getElementById("weather-data").textContent = "Unable to fetch weather data at this time";
 
         }
-        catch (error) {
-            console.error(`[ERROR] Failed to get gallery images: ${error}`);
+
+    }
+
+    function AddContact(fullName, contactNumber, emailAddress) {
+        console.log("[DEBUG] AddContact() triggered...");
+
+        if (!validateForm()) {
+            alert("Form contains errors, please correct them before submitting");
+            return;
         }
+
+        let contact = new core.Contact(fullName, contactNumber, emailAddress);
+        if (contact.serialize()) {
+
+            let key = `contact_${Date.now()}`;
+            localStorage.setItem(key, contact.serialize());
+            console.log(`[INFO] Contact added: ${key}`);
+
+        } else {
+            console.log("[ERROR] Contact serialization failed");
+        }
+
+        // Redirection
+        router.navigate("/contact-list");
     }
 
-    /**
-     * To be called when displaying the donate page
-     */
-    function DisplayDonatePage() {
-        console.log("Calling DisplayDonatePage...");
-    }
+    function DisplayEditPage() {
+        console.log("Calling EditPage...");
 
-    /**
-     * Updates the navbar to set the active link to the current page
-     */
-    function UpdateActiveNavLink() {
-        console.log("UpdateActiveNavLink called...");
+        const page = location.hash.split("#")[2];
+        const editButton = document.getElementById("editButton");
 
-        const currentPage = document.title.trim();
-        const navLinks = document.querySelectorAll('nav a');
+        addEventListenerOnce("cancelButton", "click", handleCancelClick);
 
-        navLinks.forEach(link => {
-            if (link.textContent.trim() === currentPage) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
+        switch (page)
+        {
+            case "add":
+            {
+                document.title = "Add Contact";
+                document.querySelector("main > h1").textContent = "Add Contact";
+
+                if (editButton) {
+                    editButton.innerHTML = "<i class=\"fa-solid fa-plus\"></i> Add Contact";
+                    editButton.classList.remove("btn-primary");
+                    editButton.classList.add("btn-success");
+                }
+
+                // Attach event listeners
+                addEventListenerOnce("editButton", "click", handleAddClick);
+
+                break;
             }
-        });
-    }
+            default:
+            {
+                const contact = new core.Contact();
+                const contactData = localStorage.getItem(page);
 
-    /**
-     * Loads the navbar into the current page header
-     * @returns {Promise<void>}
-     */
-    async function LoadHeader() {
-        console.log("Loading Header...");
-
-        return fetch("header.html")
-            .then(response => response.text())
-            .then(data => {
-                document.querySelector('header').innerHTML = data;
-            })
-            .catch(error => console.error(`Unable to load header: ${error}`));
-    }
-
-    /**
-     * Loads the search results for the search bar, filters by what you type into it
-     * @returns {Promise<void>}
-     */
-    async function LoadSearchResults() {
-        console.log("Loading search results...");
-
-        // Idea gotten from https://www.shecodes.io/athena/38555-how-to-create-a-search-bar-using-html-css-json-and-javascript
-        // that and my slowly escaping sanity
-        let searchBar = document.getElementById("searchBar");
-        let searchList = document.getElementById("searchResults");
-
-        // Creates a list of results when you release a key
-        searchBar.addEventListener("keyup", async function() {
-            try {
-                // Gets the possible search results from the search json file
-                const response = await fetch("data/search.json");
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+                if (contactData) {
+                    contact.deserialize(contactData);
                 }
 
-                const jsonData = await response.json();
+                // Pre-population the form with current values
+                document.getElementById("fullName").value = contact.fullName;
+                document.getElementById("contactNumber").value = contact.contactNumber;
+                document.getElementById("emailAddress").value = contact.emailAddress;
 
-                // Turns the json data into searchOptions json data
-                const searchResults = jsonData.searchOptions;
-                if (!Array.isArray(searchResults)) {
-                    throw new Error("[ERROR] JSON data does not contain a valid array!");
+                if (editButton) {
+                    editButton.innerHTML = "<i class=\"fa-solid fa-file-pen\"> Edit Contact";
+                    editButton.classList.remove("btn-success");
+                    editButton.classList.add("btn-primary");
                 }
 
-                // Resets the search result list
-                searchList.innerHTML = "";
-                let searchTerm = searchBar.value.toLowerCase();
+                // Attach event listeners
+                addEventListenerOnce("editButton", "click",
+                    (event) => handleEditClick(event, contact, page));
 
-                // If any of the characters within the title of the search option is found in the search bar
-                // input, it will add the search option to the search result list
-                for (const searchResult of searchResults) {
-                    if (searchResult.title.toLowerCase().indexOf(searchTerm) > -1) {
-                        searchList.innerHTML += `<li><a class="nav-link" href="${searchResult.link}">${searchResult.title}</a></li>`;
+                break;
+            }
+        }
+
+    }
+
+    function DisplayContactListPage() {
+        console.log("Calling ContactListPage...");
+
+        if (localStorage.length > 0) {
+            let contactList = document.getElementById("contactList");
+            let data = "";
+
+            let keys = Object.keys(localStorage);
+            // console.log(keys); // Used to see all the keys
+
+            let index = 1;
+            for (const key of keys) {
+
+                if (key.startsWith("contact_")) {
+
+                    let contactData = localStorage.getItem(key);
+
+                    try {
+                        // console.log(contactData); // Used to inspect contact information
+                        let contact = new core.Contact()
+                        contact.deserialize(contactData); // Re-construct the contact object
+                        data += `<tr>
+                                    <th scope="row" class="text-center">${index}</th>
+                                    <td>${contact.fullName}</td>
+                                    <td>${contact.contactNumber}</td>
+                                    <td>${contact.emailAddress}</td>
+                                    <td class="text-center">
+                                        <button value="${key}" class="btn btn-warning btn-sm edit">
+                                            <i class="fa-solid fa-pen"></i> Edit
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button value="${key}" class="btn btn-danger btn-sm delete">
+                                            <i class="fa-solid fa-dumpster-fire"></i> Delete
+                                        </button>
+                                    </td>
+                                 </tr>`;
+                        index++;
+                    } catch(error) {
+                        console.error("Error deserializing contact data");
                     }
+
+                } else {
+                    console.warn(`Skipping non-contact key: ${key}`);
                 }
 
             }
-            catch (error) {
-                console.error(`[ERROR] Failed to load search results: ${error}`);
-            }
+            contactList.innerHTML = data;
+
+        }
+
+        const addButton = document.getElementById("addButton");
+        addButton.addEventListener("click", ()=>{
+            router.navigate("/edit#add");
         });
 
-        // Removes the list of search results if you have unfocused the search bar and don't have anything inputted
-        searchBar.addEventListener("focusout", () => {
-            if (searchBar.value.trim() === "") {
-                searchList.innerHTML = "";
-            }
+        const deleteButtons = document.querySelectorAll("button.delete");
+        deleteButtons.forEach((button) => {
+
+            button.addEventListener("click", function() {
+
+                const contactKey = this.value;
+                console.log(`[DEBUG] Deleting contact: ${contactKey}`);
+
+                if (!contactKey.startsWith("contact_")) {
+                    console.error("[ERROR] Invalid contact key format");
+                    return;
+                }
+
+                if(confirm("Delete contact, please confirm")) {
+                    localStorage.removeItem(this.value);
+                    router.navigate("/contact-list");
+                }
+
+            });
+
+        });
+
+        const editButtons = document.querySelectorAll("button.edit");
+        editButtons.forEach((button) => {
+
+            button.addEventListener("click", function() {
+
+                router.navigate(`/edit#${this.value}`);
+
+            });
+
         });
 
     }
 
-    /**
-     * Sets everything up when the page is loaded
-     */
-    function Start() {
-        console.log("Starting App...");
+    function DisplayHomePage() {
+        console.log("Calling DisplayHomePage...");
 
-        // Load header then do something after it is finished
-        LoadHeader()
-            .then( () => {updateNavbar();})
-            .then( () => {UpdateActiveNavLink();})
-            .then( () => {LoadSearchResults();})
-            .then( () => {CheckLogin();});
+        // Purge the main HTML content
+        const main = document.getElementById("main");
+        main.innerHTML = "";
 
-        appendFooter();
-        backToTopButtonSetUp();
+        // Insert fresh content (inside "main")
+        main.insertAdjacentHTML(
+            "beforeend",
+            `<h1 class="mb-3">Welcome to our site</h1>
+            <button id="aboutUsBtn" class="btn btn-primary">About Us</button>
 
-        switch (document.title) {
-            case "Home":
+            <div id="weather" class="mb-3">
+                <h3>Weather Information</h3>
+                <p id="weather-data">Fetching weather data...</p>
+            </div>
+
+            <p id="MainParagraph" class="mb-3">This is my main paragraph</p>
+            <article>
+                <p id="ArticleParagraph" class="mb-3">This is my article paragraph</p>
+            </article>
+            `
+        );
+
+        const aboutUsButton = document.getElementById("aboutUsBtn");
+        aboutUsButton.addEventListener("click", (event) => {
+            event.preventDefault();
+            router.navigate("/about");
+        });
+
+        DisplayWeather();
+
+    }
+
+    function DisplayProductsPage() {
+        console.log("Calling DisplayProductsPage...");
+    }
+
+    function DisplayServicesPage() {
+        console.log("Calling DisplayServicesPage...");
+    }
+
+    function DisplayAboutPage() {
+        console.log("Calling DisplayAboutPage...");
+    }
+
+    function DisplayContactsPage() {
+        console.log("Calling DisplayContactsPage...");
+
+        let sendButton = document.getElementById("sendButton");
+        let subscribeCheckBox = document.getElementById("subscribeCheckBox");
+
+        sendButton.addEventListener("click", function(){
+
+            if (subscribeCheckBox.checked) {
+
+                AddContact(
+                    document.getElementById("fullName").value,
+                    document.getElementById("contactNumber").value,
+                    document.getElementById("emailAddress").value
+                );
+
+            }
+            alert("Form successfully submitted!");
+
+        });
+
+        const contactListButton = document.getElementById("showContactList");
+        if (contactListButton) {
+            contactListButton.addEventListener("click", (event) => {
+                event.preventDefault();
+                router.navigate("/contact-list");
+            });
+        }
+    }
+
+    // Listens for route changes, update nav links and calls the respective Display*() function
+    document.addEventListener("routeLoaded", (event) => {
+        const newPath = event.detail;
+        console.log(`[INFO] New route loaded: ${newPath}`);
+
+        LoadHeader().then(() => {
+            handlePageLogin(newPath);
+        });
+    });
+
+    window.addEventListener("sessionExpired", () => {
+        console.warn(`[SESSION] Redirecting the user due to inactivity.`);
+        router.navigate("/login");
+    });
+
+    function handlePageLogin(path) {
+
+        document.title = pageTitles[path] || "Untitled Page";
+
+        const protectedRoutes = ["/contact-list", "/edit"];
+        if (protectedRoutes.includes(path)) {
+            AuthGuard(); // Redirected to /login if not authenticated
+        }
+
+        switch (path) {
+            case "/":
+            case "/home":
                 DisplayHomePage();
                 break;
-            case "Opportunities":
-                DisplayOpportunityPage();
-                break;
-            case "Events":
-                DisplayEventPage();
-                break;
-            case "Contact Us":
-                DisplayContactPage();
-                break;
-            case "About":
+            case "/about":
                 DisplayAboutPage();
                 break;
-            case "Privacy Policy":
-                DisplayPrivacyPolicyPage();
+            case "/contacts":
+                DisplayContactsPage();
+                attachValidationListeners();
                 break;
-            case "Terms of Service":
-                DisplayServiceTermsPage();
+            case "/contact-list":
+                DisplayContactListPage();
                 break;
-            case "Login":
+            case "/edit":
+                DisplayEditPage();
+                attachValidationListeners();
+                break;
+            case "/login":
                 DisplayLoginPage();
                 break;
-            case "Gallery":
-                DisplayGalleryPage();
+            case "/products":
+                DisplayProductsPage();
                 break;
-            case "Donate":
-                DisplayDonatePage();
+            case "/register":
+                DisplayRegisterPage();
                 break;
+            case "/services":
+                DisplayServicesPage();
+                break;
+            default:
+                console.warn(`[WARNING] Incorrect path: ${path}`);
         }
     }
 
-    window.addEventListener("load", Start);
-})()
+    async function Start() {
+        console.log("App Starting...");
+
+        // Load header first, then run CheckLogin
+        await LoadHeader();
+        await LoadFooter();
+        AuthGuard();
+
+        const currentPath = location.hash.slice(1) || "/";
+        router.loadRoute(currentPath);
+
+        handlePageLogin(currentPath);
+    }
+    // Listens for the "load" event, calls the Start function when it does
+    window.addEventListener("DOMContentLoaded", () => {
+        console.log("DOM fully loaded and parsed");
+        Start();
+    });
+
+})();

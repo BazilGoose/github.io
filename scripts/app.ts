@@ -28,6 +28,15 @@ interface eventDataJson {
     events: event[];
 }
 
+interface eventType {
+    name: string;
+    val: string;
+}
+
+interface eventTypesJson {
+    types: eventType[];
+}
+
 const pageTitles:Record<string, string> = {
     "/": "Home",
     "/home": "Home",
@@ -248,7 +257,7 @@ const router = new Router(routes);
     async function DisplayEventPage() {
         console.log("Calling DisplayEventPage...");
 
-        fetch("../data/events.json")
+        fetch("./data/events.json")
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`[ERROR] Failed to fetch event types ${response.status}`);
@@ -258,7 +267,7 @@ const router = new Router(routes);
             .then(resData => {
                 const filterSelect = document.getElementById("filterSelect") as HTMLSelectElement;
 
-                resData.types.forEach((type:{name:string, val:string}) => {
+                resData.types.forEach((type:eventType) => {
                     filterSelect.innerHTML += `<option value="${type.val}">${type.name}</option>`
                 })
             })

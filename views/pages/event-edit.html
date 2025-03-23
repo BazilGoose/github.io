@@ -1,0 +1,55 @@
+<h1>Edit Event</h1>
+
+<!-- Bootstrap form -->
+<form class="col-lg-6 col-md-10 col-sm-12 mb-4">
+
+  <div class="input-group-text mb-3">
+    <label for="eventTitle" class="input-group-text">Title</label>
+    <input id="eventTitle" name="eventTitle" type="text" class="form-control"
+           aria-describedby="eventTitle-error" required>
+    <span id="eventTitle-error" class="text-danger"></span>
+  </div>
+
+  <div class="input-group-text mb-3">
+    <label for="eventStartDate" class="input-group-text">Start Date and Time</label>
+    <input id="eventStartDate" name="eventStartDate" type="datetime-local" class="form-control"
+           aria-describedby="eventStartDate-error" required>
+    <span id="eventStartDate-error" class="text-danger"></span>
+  </div>
+
+  <div class="input-group-text mb-3">
+    <label for="eventEndDate" class="input-group-text">End Date and Time</label>
+    <input id="eventEndDate" name="eventEndDate" type="datetime-local" class="form-control"
+           aria-describedby="eventEndDate-error" required>
+    <span id="eventEndDate-error" class="text-danger"></span>
+  </div>
+
+  <div class="input-group-text mb-3">
+    <label for="eventLocation" class="input-group-text">Location</label>
+    <input id="eventLocation" name="eventLocation" type="text" class="form-control"
+           aria-describedby="eventLocation-error" required>
+    <span id="eventLocation-error" class="text-danger"></span>
+  </div>
+
+  <div class="input-group-text mb-3">
+    <label for="eventDesc" class="input-group-text">Description</label>
+    <input id="eventDesc" name="eventDesc" type="text" class="form-control"
+           aria-describedby="eventDesc-error" required>
+    <span id="eventDesc-error" class="text-danger"></span>
+  </div>
+
+  <div class="input-group-text mb-3">
+    <label for="eventType" class="input-group-text">Type</label>
+    <select id="eventType" name="eventType" type="text" class="form-control"
+            aria-describedby="eventType-error" required></select>
+    <span id="eventType-error" class="text-danger"></span>
+  </div>
+
+  <button id="editButton" name="editButton" type="submit" class="btn btn-primary">
+    <i class="fa-solid fa-file-pen"></i> Confirm
+  </button>
+  <button id="cancelButton" name="cancelButton" type="reset" class="btn btn-warning">
+    <i class="fa-solid fa-rotate-right"></i> Cancel
+  </button>
+
+</form>

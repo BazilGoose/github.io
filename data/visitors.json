@@ -1,0 +1,30 @@
+{
+  "visitors": {
+    "January": 134,
+    "February": 156,
+    "March": 98,
+    "April": 120,
+    "May": 143,
+    "June": 165,
+    "July": 178,
+    "August": 149,
+    "September": 132,
+    "October": 157,
+    "November": 111,
+    "December": 140
+  },
+  "volunteers": {
+    "January": 99,
+    "February": 71,
+    "March": 1,
+    "April": 23,
+    "May": 74,
+    "June": 30,
+    "July": 145,
+    "August": 29,
+    "September": 127,
+    "October": 66,
+    "November": 91,
+    "December": 89
+  }
+}

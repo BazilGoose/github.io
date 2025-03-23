@@ -1,0 +1,17 @@
+{
+  "types":
+  [
+    {
+      "name": "All Events",
+      "val": "All"
+    },
+    {
+      "name": "Testing Events",
+      "val": "Testing"
+    },
+    {
+      "name": "Event Events",
+      "val": "Event"
+    }
+  ]
+}

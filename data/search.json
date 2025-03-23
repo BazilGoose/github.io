@@ -1,0 +1,17 @@
+{
+  "searchOptions" :
+  [
+    {
+      "title" : "Home",
+      "link" : "#/home"
+    },
+    {
+      "title" : "Events",
+      "link" : "#/event"
+    },
+    {
+      "title" : "Opportunity",
+      "link" : "#/opportunity"
+    }
+  ]
+}

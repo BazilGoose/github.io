@@ -1,0 +1,41 @@
+<div class="text-center mb-4 pb-5">
+    <h1>Welcome to Volunteer Connect</h1>
+    <button id="GetInvolvedBtn" class="btn btn-primary">Get Involved</button>
+</div>
+
+<div class="row g-4 align-items-start">
+    <div id="carouselColumn" class="col-md-6 d-flex justify-content-center">
+        <!-- Image Carousel Gotten From Bootstrap -->
+        <!-- Current Images Are Placeholders >Noah -->
+        <div id="carouselExample" class="carousel slide w-100">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="./images/Grave_CrowSprite.png" class="d-block w-100" alt="Grave Crow Sprite">
+                </div>
+                <div class="carousel-item">
+                    <img src="./images/QuestionMarkSprite.png" class="d-block w-100" alt="??? Sprite">
+                </div>
+                <div class="carousel-item">
+                    <img src="./images/System32Sprite.png" class="d-block w-100" alt="System32 Sprite">
+                </div>
+            </div>
+            <button style="background-color:gray" class="carousel-control-prev" type="button"
+                    data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button style="background-color:gray" class="carousel-control-next" type="button"
+                    data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <div id="placesApiColumn" class="col text-center">
+        <h3 class="text-center mb-4">Nearby Attractions</h3>
+        <p id="apiMessage">Loading...</p>
+        <div id="placesList" class="d-flex flex-column align-items-center">
+            <!-- Nearby places are added here from app.ts -->
+        </div>
+    </div>
+</div>

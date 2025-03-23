@@ -1,0 +1,53 @@
+<h1>Contact Us</h1>
+
+<!-- General inquiry form needed here -->
+<form class="col-lg-6 col-md-10 col-sm-12 mb-4">
+
+    <div class="input-group mb-3">
+        <span class="input-group-text">Full Name</span>
+        <input id="fullName" name="fullName" type="text" class="form-control"
+               aria-describedby="Full Name" aria-label="Full Name" required>
+    </div>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text">Email Address</span>
+        <input id="emailAddress" name="emailAddress" type="email" class="form-control"
+               aria-describedby="Email Address" aria-label="Email Address" required>
+    </div>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text">Subject</span>
+        <input id="messageSubject" name="messageSubject" type="text" class="form-control"
+               aria-describedby="Message Subject" aria-label="Message Subject" required>
+    </div>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text">Message</span>
+        <textarea id="message" name="message" class="form-control"
+                  aria-describedby="Message Area" aria-label="Message Area"></textarea>
+    </div>
+
+    <button id="sendButton" name="sendButton" class="btn btn-primary" type="submit">
+        <i class="fa-solid fa-envelope"></i> Submit
+    </button>
+    <button id="cancelButton" name="cancelButton" type="reset" class="btn btn-warning"><i
+            class="fa-solid fa-rotate-right"></i> Cancel
+    </button>
+
+</form>
+
+<!-- Display "Thank you" message modal after inquiry submission -->
+<div class="modal fade" id="thanksModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Thank You</h1>
+            </div>
+            <div class="modal-body">
+                Thank you for your inquiry, we will see to it that any questions will be answered as soon as possible.
+                <div id="submissionDetails"></div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>

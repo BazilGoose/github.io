@@ -1,0 +1,23 @@
+{
+  "users" :
+  [
+    {
+      "DisplayName" : "Baezile Carnivera",
+      "EmailAddress" : "noahbarraclough838@gmail.com",
+      "Username" : "Carnivera",
+      "Password" : "123456"
+    },
+    {
+      "DisplayName" : "Bilbo Baggins",
+      "EmailAddress" : "bilbobaggins@durhamcollege.ca",
+      "Username" : "bbaggins",
+      "Password" : "789012"
+    },
+    {
+      "DisplayName" : "admin",
+      "EmailAddress" : "admin@durhamcollege.ca",
+      "Username" : "admin",
+      "Password" : "password"
+    }
+  ]
+}

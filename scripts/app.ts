@@ -684,6 +684,7 @@ const router = new Router(routes);
             })
             .then(resData => {
                 const filterSelect = document.getElementById("eventType") as HTMLSelectElement;
+                console.log(resData);
 
                 resData.types.forEach((type:{name:string, val:string}) => {
                     if (type.name !== "All Events") {

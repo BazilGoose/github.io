@@ -2,14 +2,13 @@
 
 // Names: Cole de Ruiter, Noah Barraclough
 // Student IDS: 100906323, 100923580
-// Date: March 21, 2025
+// Date: March 23, 2025
 
 import {Contact} from "./contact.js";
 import {LoadHeader} from "./header.js";
 import {Router} from "./router.js";
 import {LoadFooter} from "./footer.js";
 import {AuthGuard} from "./authguard.js";
-import {User} from "./user.js";
 import {LoadBackToTop} from "./backToTop.js";
 import {Gallery} from "./gallery.js";
 import {NotificationToast} from "./notification.js";
@@ -31,10 +30,6 @@ interface eventDataJson {
 interface eventType {
     name: string;
     val: string;
-}
-
-interface eventTypesJson {
-    types: eventType[];
 }
 
 const pageTitles:Record<string, string> = {
@@ -82,8 +77,6 @@ const router = new Router(routes);
 //IIFE - Immediately Invoke Functional Expression
 
 (function () {
-
-    let GallerySlideIndex = 1;
 
     /**
      * Called when displaying the homepage
@@ -1045,6 +1038,9 @@ const router = new Router(routes);
                 break;
             case "/login":
                 DisplayLoginPage();
+                break;
+            case "/register":
+                DisplayRegisterPage();
                 break;
             case "/gallery":
                 DisplayGalleryPage();

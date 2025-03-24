@@ -1,7 +1,7 @@
 "use strict";
 // Names: Cole de Ruiter, Noah Barraclough
 // Student IDS: 100906323, 100923580
-// Date: March 21, 2025
+// Date: March 23, 2025
 import { Contact } from "./contact.js";
 import { LoadHeader } from "./header.js";
 import { Router } from "./router.js";
@@ -52,7 +52,6 @@ const routes = {
 const router = new Router(routes);
 //IIFE - Immediately Invoke Functional Expression
 (function () {
-    let GallerySlideIndex = 1;
     /**
      * Called when displaying the homepage
      */
@@ -115,7 +114,7 @@ const router = new Router(routes);
                      `;
             });
             if (placesList) {
-                placesList.innerHTML += data;
+                placesList.innerHTML = data;
             }
         }
         catch (error) {
@@ -837,6 +836,8 @@ const router = new Router(routes);
         }
         switch (path) {
             case "/":
+                DisplayHomePage();
+                break;
             case "/home":
                 DisplayHomePage();
                 break;
@@ -860,6 +861,9 @@ const router = new Router(routes);
                 break;
             case "/login":
                 DisplayLoginPage();
+                break;
+            case "/register":
+                DisplayRegisterPage();
                 break;
             case "/gallery":
                 DisplayGalleryPage();

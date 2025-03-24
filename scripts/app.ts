@@ -675,6 +675,27 @@ const router = new Router(routes);
             return;
         }
 
+        fetch("../github.io/data/events.json")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`[ERROR] Failed to fetch event types ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(resData => {
+                const filterSelect = document.getElementById("eventType") as HTMLSelectElement;
+
+                resData.types.forEach((type:{name:string, val:string}) => {
+                    if (type.name !== "All Events") {
+                        filterSelect.innerHTML += `<option value="${type.val}">${type.name}</option>`;
+                    }
+                })
+            })
+            .catch(error => {
+                console.error(`[ERROR] Failed to add filter options ${error}`);
+                return;
+            });
+
         addEventListenerOnce("cancelButton", "click", handleCancelClick);
 
         if (page === "add") {
@@ -705,28 +726,6 @@ const router = new Router(routes);
             (document.getElementById("eventEndDate") as HTMLInputElement).value = event.end;
             (document.getElementById("eventLocation") as HTMLInputElement).value = event.location;
             (document.getElementById("eventDesc") as HTMLInputElement).value = event.description;
-
-            fetch("../github.io/data/events.json")
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`[ERROR] Failed to fetch event types ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(resData => {
-                    const filterSelect = document.getElementById("eventType") as HTMLSelectElement;
-
-                    resData.types.forEach((type:{name:string, val:string}) => {
-                        if (type.name !== "All Events") {
-                            filterSelect.innerHTML += `<option value="${type.val}">${type.name}</option>`;
-                        }
-                    })
-                })
-                .catch(error => {
-                    console.error(`[ERROR] Failed to add filter options ${error}`);
-                    return;
-                });
-
             (document.getElementById("eventType") as HTMLInputElement).value = event.dataFilter;
 
             if (editButton) {

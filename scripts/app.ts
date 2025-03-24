@@ -9,6 +9,7 @@ import {LoadHeader} from "./header.js";
 import {Router} from "./router.js";
 import {LoadFooter} from "./footer.js";
 import {AuthGuard} from "./authguard.js";
+import {User} from "./user.js";
 import {LoadBackToTop} from "./backToTop.js";
 import {Gallery} from "./gallery.js";
 import {NotificationToast} from "./notification.js";

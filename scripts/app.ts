@@ -160,7 +160,6 @@ const router = new Router(routes);
                         </div>
                     </div>
                      `;
-                console.log(data);
             })
             if (placesList) {
                 placesList.innerHTML = data;
@@ -1021,6 +1020,8 @@ const router = new Router(routes);
 
         switch (path) {
             case "/":
+                DisplayHomePage();
+                break;
             case "/home":
                 DisplayHomePage();
                 break;

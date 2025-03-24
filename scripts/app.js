@@ -74,6 +74,7 @@ const router = new Router(routes);
         const apiKey = "fsq3NDg1qRl7Cpike3JK4CbR6BSimnxk0WKduffUuJhEg8g=";
         const resultLimit = 5;
         const apiMessage = document.getElementById("apiMessage");
+        apiMessage.textContent = "";
         const options = {
             method: 'GET',
             headers: {

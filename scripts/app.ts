@@ -105,6 +105,7 @@ const router = new Router(routes);
         const resultLimit = 5;
 
         const apiMessage = document.getElementById("apiMessage") as HTMLElement;
+        apiMessage.textContent = "";
 
         const options = {
             method: 'GET',

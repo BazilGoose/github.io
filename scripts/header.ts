@@ -97,7 +97,7 @@ function CheckLogin() {
 
     const userSession = sessionStorage.getItem("user");
 
-    // Loggedin
+    // Logged in
     if (userSession) {
         loginNav.innerHTML = `<i class="fas fa-sign-out-alt"></i> Logout`;
         loginNav.href = "#";

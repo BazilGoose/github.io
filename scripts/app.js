@@ -61,7 +61,7 @@ const router = new Router(routes);
         let getInvolvedButton = document.getElementById("GetInvolvedBtn");
         if (getInvolvedButton) {
             getInvolvedButton.addEventListener("click", function () {
-                location.href = "opportunity.html";
+                location.href = "#/opportunity";
             });
         }
         displayPlaces();

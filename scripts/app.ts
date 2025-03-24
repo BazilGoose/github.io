@@ -89,7 +89,7 @@ const router = new Router(routes);
 
         if (getInvolvedButton) {
             getInvolvedButton.addEventListener("click", function(){
-                location.href = "opportunity.html";
+                location.href = "#/opportunity";
             });
         }
         displayPlaces();

@@ -14,6 +14,7 @@ import {Gallery} from "./gallery.js";
 import {NotificationToast} from "./notification.js";
 import * as EventObj from "./event.js";
 
+// Interface for events
 interface event {
     title: string;
     start: string;
@@ -23,15 +24,18 @@ interface event {
     dataFilter: string;
 }
 
+// Interface for the events collection json data
 interface eventDataJson {
     events: event[];
 }
 
+// Interface for the various dataFilters and event types
 interface eventType {
     name: string;
     val: string;
 }
 
+// The titles for each page
 const pageTitles:Record<string, string> = {
     "/": "Home",
     "/home": "Home",
@@ -52,6 +56,7 @@ const pageTitles:Record<string, string> = {
     "/404": "404 | Page Not Found"
 };
 
+// The routes for each page
 const routes = {
     "/": "views/pages/home.html",
     "/home": "views/pages/home.html",
@@ -72,9 +77,8 @@ const routes = {
     "/404": "views/pages/404.html"
 };
 
+// Creates a Router object to use for navigation
 const router = new Router(routes);
-
-//IIFE - Immediately Invoke Functional Expression
 
 (function () {
 
@@ -155,6 +159,7 @@ const router = new Router(routes);
                      `;
             })
             if (placesList) {
+                // Resets and then sets the foursquare places list inside the home page
                 placesList.innerHTML = "";
                 placesList.innerHTML = data;
             }
@@ -174,6 +179,7 @@ const router = new Router(routes);
         let opportunityList = document.getElementById("opportunityList") as HTMLElement;
         let data = "";
 
+        // Gets the opportunities from the opportunities json file and adds them to the opportunity list
         async function GetOpportunities() {
             try {
                 const response = await fetch("data/opportunities.json");
@@ -208,6 +214,7 @@ const router = new Router(routes);
             opportunityList.innerHTML = data;
         });
 
+        // Gets the volunteer sign up modal elements
         const signUpButtons = document.getElementsByClassName("signUpButton") as HTMLCollectionOf<HTMLButtonElement>;
         const sendButton = document.getElementById("sendButton") as HTMLButtonElement;
         const opportunityId = document.getElementById("opportunityId") as HTMLElement;
@@ -216,6 +223,7 @@ const router = new Router(routes);
         const preferredRole = document.getElementById("preferredRole") as HTMLInputElement;
         const thanksMessage = document.getElementById("thanksMessage") as HTMLElement;
 
+        // Sets up the signup buttons for each opportunity
         for (const signUpButton of signUpButtons) {
             signUpButton.addEventListener("click", function(event) {
                 event.preventDefault();
@@ -227,7 +235,7 @@ const router = new Router(routes);
             })
         }
 
-        // Getting the opportunityModal working
+        // Sends in the volunteer information for the opportunity you have chosen
         sendButton.addEventListener("click", function(e){
             e.preventDefault();
 
@@ -251,6 +259,7 @@ const router = new Router(routes);
     async function DisplayEventPage() {
         console.log("Calling DisplayEventPage...");
 
+        // Fetches the events json for the event dataFilter types
         fetch("../github.io/data/events.json")
             .then(response => {
                 if (!response.ok) {
@@ -261,6 +270,7 @@ const router = new Router(routes);
             .then(resData => {
                 const filterSelect = document.getElementById("filterSelect") as HTMLSelectElement;
 
+                // For each dataFilter, adds it to the options in the filter select
                 resData.types.forEach((type:eventType) => {
                     filterSelect.innerHTML += `<option value="${type.val}">${type.name}</option>`
                 })
@@ -270,11 +280,13 @@ const router = new Router(routes);
                 return;
             });
 
+        // Creates a basic container for the events
         let data:eventDataJson = {
             "events": []
         };
         let keys = Object.keys(localStorage);
 
+        // Checks each key for event items and adds them to the data events container
         keys.forEach((key:string) => {
             if (key.startsWith("event_")) {
                 const eventData: string|null = localStorage.getItem(key);
@@ -295,13 +307,16 @@ const router = new Router(routes);
             }
         });
 
+        // If there are no events, log an error
         if (!data.events) {
             console.error(`[ERROR] No event data`);
             return;
         }
 
+        // Gets the calendar element
         let calendarEl = document.getElementById('calendar') as HTMLElement;
 
+        // Make a calendar object from FullCalendar and insert the events for the calendar events
         // Class is imported in html so ignore error
         // @ts-ignore
         const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -309,8 +324,10 @@ const router = new Router(routes);
             events: data.events
         });
 
+        // Render the calendar on the screen
         calendar.render();
 
+        // Filters the events by type depending on which option you choose in the filter select
         let filterSelect = document.getElementById('filterSelect') as HTMLSelectElement;
         if(filterSelect) {
             filterSelect.addEventListener('change', function () {
@@ -331,6 +348,7 @@ const router = new Router(routes);
     function DisplayContactPage() {
         console.log("Calling DisplayContactPage...");
 
+        // Gets the contact page form elements
         const sendButton = document.getElementById("sendButton") as HTMLButtonElement;
         const fullName = document.getElementById("fullName") as HTMLInputElement;
         const emailAddress = document.getElementById("emailAddress") as HTMLInputElement;
@@ -339,6 +357,7 @@ const router = new Router(routes);
         const submissionDetails = document.getElementById("submissionDetails") as HTMLElement;
         const thanksModalElement = document.getElementById("thanksModal") as HTMLElement;
 
+        // If any of the elements don't contain anything, log an error
         if (!sendButton || !fullName || !emailAddress || !messageSubject || !message || !thanksModalElement || !submissionDetails) {
             console.error("[ERROR] One or more form elements are missing");
             return;
@@ -404,12 +423,14 @@ const router = new Router(routes);
     function DisplayLoginPage() {
         console.log("Calling DisplayLoginPage...");
 
+        // If there is a user item in sessionStorage, redirect to home page
         if (sessionStorage.getItem("user")) {
             console.log("[INFO] Redirecting logged in user from /login to /home");
             router.navigate("/home");
             return;
         }
 
+        // Get the login page form elements
         const messageArea = document.getElementById("messageArea") as HTMLElement;
         const loginButton = document.getElementById("loginButton") as HTMLButtonElement;
         const cancelButton = document.getElementById("cancelButton") as HTMLButtonElement;
@@ -420,6 +441,8 @@ const router = new Router(routes);
             return;
         }
 
+        // Adds an event listener to the login button which checks if the input is correct for logging in
+        // and if it is, adds a user item to the session storage with user details
         loginButton.addEventListener("click", async (event) => {
             event.preventDefault();
 
@@ -428,6 +451,7 @@ const router = new Router(routes);
 
             try {
 
+                // Gets the users from the user json
                 const response = await fetch("./data/users.json");
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -441,6 +465,7 @@ const router = new Router(routes);
                     throw new Error("[ERROR] JSON data does not contain a valid array!");
                 }
 
+                // Checks each user if the username and password are correct
                 let success = false;
                 let authenticatedUser = null;
 
@@ -452,6 +477,7 @@ const router = new Router(routes);
                     }
                 }
 
+                // If a user with the same username and password is found, add the user to session storage
                 if (success) {
 
                     sessionStorage.setItem("user", JSON.stringify({
@@ -471,6 +497,7 @@ const router = new Router(routes);
                         notifToast.show(`<h4>Welcome, ${username}!</h4>`, 3600);
                     });
 
+                // If a user wasn't found, give them a fault message
                 } else {
                     messageArea.style.display = "block";
                     messageArea.classList.add("alert", "alert-danger");
@@ -491,11 +518,12 @@ const router = new Router(routes);
             return;
         }
 
+        // Sets the cancel button up (if it exists) to reset the login form and navigate to home
         if (cancelButton && loginForm) {
             cancelButton.addEventListener("click", async (event) => {
                 event.preventDefault();
                 loginForm.reset();
-                router.navigate("/");
+                router.navigate("/home");
             });
         } else {
             console.warn("[WARNING] Cancel Button and/or Login Form not found in DOM");
@@ -523,6 +551,7 @@ const router = new Router(routes);
     async function GetGalleryImages(gallery: Gallery): Promise<void> {
         console.log("Getting gallery images...");
 
+        // Gets gallery image data, and puts it into the gallery
         try {
             const response = await fetch("data/gallery.json");
             if (!response.ok) {
@@ -676,7 +705,7 @@ const router = new Router(routes);
             (document.getElementById("eventLocation") as HTMLInputElement).value = event.location;
             (document.getElementById("eventDesc") as HTMLInputElement).value = event.description;
 
-            fetch("../github.io/data/events.json")
+            fetch("data/events.json")
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`[ERROR] Failed to fetch event types ${response.status}`);
@@ -918,7 +947,7 @@ const router = new Router(routes);
         const ctxVisitors = document.getElementById('visitors') as HTMLCanvasElement;
         const ctxVolunteers = document.getElementById("volunteers") as HTMLCanvasElement;
         if (!visitorsChart) {
-            fetch("../data/visitors.json")
+            fetch("data/visitors.json")
                 .then(response => response.json())
                 .then(visitorData => {
                     const visitorsObj = visitorData.visitors;

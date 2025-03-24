@@ -546,6 +546,26 @@ const router = new Router(routes);
             console.error("[ERROR] Main Page Title element not found");
             return;
         }
+        fetch("../github.io/data/events.json")
+            .then(response => {
+            if (!response.ok) {
+                throw new Error(`[ERROR] Failed to fetch event types ${response.status}`);
+            }
+            return response.json();
+        })
+            .then(resData => {
+            const filterSelect = document.getElementById("eventType");
+            console.log(resData);
+            resData.types.forEach((type) => {
+                if (type.name !== "All Events") {
+                    filterSelect.innerHTML += `<option value="${type.val}">${type.name}</option>`;
+                }
+            });
+        })
+            .catch(error => {
+            console.error(`[ERROR] Failed to add filter options ${error}`);
+            return;
+        });
         addEventListenerOnce("cancelButton", "click", handleCancelClick);
         if (page === "add") {
             document.title = "Add Event";
@@ -571,25 +591,6 @@ const router = new Router(routes);
             document.getElementById("eventEndDate").value = event.end;
             document.getElementById("eventLocation").value = event.location;
             document.getElementById("eventDesc").value = event.description;
-            fetch("../github.io/data/events.json")
-                .then(response => {
-                if (!response.ok) {
-                    throw new Error(`[ERROR] Failed to fetch event types ${response.status}`);
-                }
-                return response.json();
-            })
-                .then(resData => {
-                const filterSelect = document.getElementById("eventType");
-                resData.types.forEach((type) => {
-                    if (type.name !== "All Events") {
-                        filterSelect.innerHTML += `<option value="${type.val}">${type.name}</option>`;
-                    }
-                });
-            })
-                .catch(error => {
-                console.error(`[ERROR] Failed to add filter options ${error}`);
-                return;
-            });
             document.getElementById("eventType").value = event.dataFilter;
             if (editButton) {
                 editButton.innerHTML = "<i class=\"fa-solid fa-file-pen\"> Edit";

@@ -160,6 +160,7 @@ const router = new Router(routes);
                         </div>
                     </div>
                      `;
+                console.log(data);
             })
             if (placesList) {
                 placesList.innerHTML = data;

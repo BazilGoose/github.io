@@ -544,7 +544,7 @@ const router = new Router(routes);
             document.getElementById("eventEndDate").value = event.end;
             document.getElementById("eventLocation").value = event.location;
             document.getElementById("eventDesc").value = event.description;
-            fetch("../data/events.json")
+            fetch("../github.io/data/events.json")
                 .then(response => {
                 if (!response.ok) {
                     throw new Error(`[ERROR] Failed to fetch event types ${response.status}`);

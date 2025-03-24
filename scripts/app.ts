@@ -162,7 +162,7 @@ const router = new Router(routes);
                      `;
             })
             if (placesList) {
-                placesList.innerHTML += data;
+                placesList.innerHTML = data;
             }
         } catch (error: any) {
             console.error(`[ERROR] ${error}`);

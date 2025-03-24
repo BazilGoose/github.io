@@ -205,7 +205,7 @@ const router = new Router(routes);
     async function DisplayEventPage() {
         console.log("Calling DisplayEventPage...");
         // Fetches the events json for the event dataFilter types
-        fetch("./data/events.json")
+        fetch("../github.io/data/events.json")
             .then(response => {
             if (!response.ok) {
                 throw new Error(`[ERROR] Failed to fetch event types ${response.status}`);
@@ -571,7 +571,7 @@ const router = new Router(routes);
             document.getElementById("eventEndDate").value = event.end;
             document.getElementById("eventLocation").value = event.location;
             document.getElementById("eventDesc").value = event.description;
-            fetch("./data/events.json")
+            fetch("../github.io/data/events.json")
                 .then(response => {
                 if (!response.ok) {
                     throw new Error(`[ERROR] Failed to fetch event types ${response.status}`);
@@ -778,7 +778,7 @@ const router = new Router(routes);
         const ctxVisitors = document.getElementById('visitors');
         const ctxVolunteers = document.getElementById("volunteers");
         if (!visitorsChart) {
-            fetch("./data/visitors.json")
+            fetch("../github.io/data/visitors.json")
                 .then(response => response.json())
                 .then(visitorData => {
                 const visitorsObj = visitorData.visitors;

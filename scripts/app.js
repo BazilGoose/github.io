@@ -198,7 +198,7 @@ const router = new Router(routes);
      */
     async function DisplayEventPage() {
         console.log("Calling DisplayEventPage...");
-        fetch("./data/events.json")
+        fetch("../github.io/data/events.json")
             .then(response => {
             if (!response.ok) {
                 throw new Error(`[ERROR] Failed to fetch event types ${response.status}`);
